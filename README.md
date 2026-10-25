@@ -17,7 +17,7 @@ The dashboard provides monthly and daily forecast-performance metrics, visualisa
 
 ## Technology Stack
 
-**Frontend**
+### Frontend
 
 - React
 - Vite
@@ -25,23 +25,24 @@ The dashboard provides monthly and daily forecast-performance metrics, visualisa
 - Lucide React
 - Nginx
 
-**Backend**
+### Backend
 
 - Python
 - FastAPI
-- Pandas and Requests
+- Pandas
+- Requests
 
-**Deployment**
+### Deployment
 
 - Docker
 - Docker Compose
 
 ## Data Sources
 
-WindScope uses Elexon BMRS API datasets:
+WindScope uses the following Elexon BMRS API datasets:
 
-- **Actual generation — FUELHH:** https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/FUELHH/stream
-- **Wind generation forecasts — WINDFOR:** https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/WINDFOR/stream
+- **Actual generation — FUELHH:** [Elexon FUELHH API documentation](https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/FUELHH/stream)
+- **Wind generation forecasts — WINDFOR:** [Elexon WINDFOR API documentation](https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/WINDFOR/stream)
 
 The application uses wind generation records and their publication and delivery timestamps to compare forecasts with actual generation.
 
@@ -54,25 +55,29 @@ The default evaluation period is January 2026.
 3. Retrieve wind forecast records published on the preceding day.
 4. Select the latest forecast vintage published at or before the configured day-ahead cutoff.
 5. Match forecasts and actual generation by delivery-hour start time.
-6. Calculate the forecast-performance metrics using the matched hourly values.
+6. Calculate forecast-performance metrics using the matched hourly values.
 
-**Publication cutoff assumption:** The current implementation uses 11:00 UTC on the preceding day as the day-ahead forecast selection cutoff. This is an explicit modelling assumption and should be interpreted in the context of the purchasing decision being evaluated.
+**Publication cutoff assumption:** The current implementation uses 11:00 UTC on the preceding day as the day-ahead forecast selection cutoff. This is an explicit modelling assumption and should be interpreted in the context of the purchasing decision being evaluated. It should not be taken as confirmation of an official market deadline.
 
 January is on GMT in the UK, so UTC and UK local time coincide during this evaluation period.
 
 ### Performance Metrics
 
-Let \(F_t\) be forecast generation and \(A_t\) be actual generation for hour \(t\). Forecast error is defined as \(e_t = F_t - A_t\).
+Let \(F_t\) be forecast generation and \(A_t\) be actual generation for hour \(t\). Forecast error is defined as:
 
-- **MAE:** Mean of the absolute forecast errors. Lower values indicate better accuracy.
-- **RMSE:** Square root of the mean squared forecast errors. Larger errors receive greater weight.
-- **Bias:** Mean forecast error. Positive bias indicates over-forecasting; negative bias indicates under-forecasting.
+\[
+e_t = F_t - A_t
+\]
+
+- **Mean Absolute Error (MAE):** The mean of the absolute forecast errors. Lower values indicate better accuracy.
+- **Root Mean Squared Error (RMSE):** The square root of the mean squared forecast errors. Larger errors receive greater weight.
+- **Forecast Bias:** The mean forecast error. Positive bias indicates over-forecasting, while negative bias indicates under-forecasting.
 
 All generation errors and metrics are expressed in MW.
 
 ## January 2026 Evaluation Results
 
-Results from the current implementation:
+The following results were returned by the current local implementation:
 
 | Metric                  |       Result |
 | ----------------------- | -----------: |
@@ -83,7 +88,7 @@ Results from the current implementation:
 | RMSE                    |  2,616.69 MW |
 | Bias                    | +1,840.30 MW |
 
-The positive monthly bias indicates that forecasts exceeded actual wind generation on average over the evaluated hours. These figures are specific to the selected publication cutoff and hourly aggregation methodology.
+The positive monthly bias indicates that forecast generation exceeded actual wind generation on average over the evaluated hours. These results depend on the selected publication cutoff, data availability, and hourly aggregation methodology.
 
 ## Architecture
 
@@ -101,13 +106,13 @@ Nginx serves the built frontend and proxies API requests to the backend.
 - Docker Desktop
 - Docker Compose
 
-### Start the application
+### Start the Application
 
 Clone the repository and enter the project directory:
 
 ```bash
-git clone https://github.com/MOHAMMED-RIYAZ/wind-forecast-dashboard.git
-cd wind-forecast-dashboard
+git clone https://github.com/MOHAMMED-RIYAZ/r7m2vk.git
+cd r7m2vk
 ```
 
 Build and start both services:
@@ -118,17 +123,11 @@ docker compose up --build -d
 
 Open the dashboard:
 
-http://localhost:8080
+- **Dashboard:** [http://localhost:8080](http://localhost:8080)
+- **Backend health check:** [http://localhost:8080/health](http://localhost:8080/health)
+- **API documentation:** [http://localhost:8080/docs](http://localhost:8080/docs)
 
-Backend health check:
-
-http://localhost:8080/health
-
-API documentation:
-
-http://localhost:8080/docs
-
-### Stop the application
+### Stop the Application
 
 ```bash
 docker compose down
@@ -136,26 +135,26 @@ docker compose down
 
 ## API Endpoints
 
-| Endpoint                                           | Description                   |
-| -------------------------------------------------- | ----------------------------- |
-| `GET /health`                                      | Health check                  |
-| `GET /api/evaluation?year=2026&month=1`            | Monthly evaluation            |
-| `GET /api/evaluation/day?delivery_date=2026-01-15` | Single-day evaluation         |
-| `GET /docs`                                        | Interactive API documentation |
+| Method | Endpoint                                       | Description                   |
+| ------ | ---------------------------------------------- | ----------------------------- |
+| GET    | `/health`                                      | Health check                  |
+| GET    | `/api/evaluation?year=2026&month=1`            | Monthly evaluation            |
+| GET    | `/api/evaluation/day?delivery_date=2026-01-15` | Single-day evaluation         |
+| GET    | `/docs`                                        | Interactive API documentation |
 
 ## Limitations and Assumptions
 
 - Forecast evaluation depends on the configured day-ahead publication cutoff.
-- Half-hourly actuals are averaged to match the hourly forecast resolution.
+- Half-hourly actual generation readings are averaged to match the hourly forecast resolution.
 - Only hours with matching forecast and actual data can be compared.
 - The current implementation expects 24 matched hourly values per delivery day.
-- Results describe forecast performance for the selected historical period; they do not guarantee future performance.
-- Forecast metrics can change if the publication cutoff or aggregation methodology changes.
+- Results describe forecast performance for the selected historical period and do not guarantee future performance.
+- Forecast metrics may change if the publication cutoff, source data, or aggregation methodology changes.
 
 ## Project Structure
 
 ```text
-wind-forecast-dashboard/
+r7m2vk/
 ├── backend/
 │   ├── main.py
 │   ├── elexon.py
@@ -170,9 +169,13 @@ wind-forecast-dashboard/
 └── README.md
 ```
 
+## AI Tools Disclosure
+
+ChatGPT (OpenAI) was used as an AI-assisted development tool for implementation guidance, debugging, documentation, and reviewing the forecast-evaluation methodology. The application was tested locally using Docker, and the reported January 2026 evaluation results were verified against the running API.
+
 ## Demo
 
-Video demonstration: Add the unlisted YouTube link here after recording the walkthrough.
+Video demonstration: To be added after recording and uploading the unlisted YouTube walkthrough.
 
 ## License
 
