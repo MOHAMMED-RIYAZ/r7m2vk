@@ -314,7 +314,7 @@ The reported evaluation results come from the current application implementation
 
 ## 14. Demo Video
 
-**[Watch the WindScope Demo](https://www.youtube.com/watch?v=08c3oC3IPV0)**
+**[Watch the WindScope Demo](https://www.youtube.com/watch?v=08c3oC3IPVU)**
 
 The unlisted video covers the two parts requested in the assignment:
 
