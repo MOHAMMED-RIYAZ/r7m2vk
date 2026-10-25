@@ -123,9 +123,9 @@ docker compose up --build -d
 
 Open the dashboard:
 
-- **Dashboard:** [http://localhost:8080](http://localhost:8080)
-- **Backend health check:** [http://localhost:8080/health] (http://localhost:8080/health)
-- **API documentation:** [http://localhost:8080/docs] (http://localhost:8080/docs)
+- **Dashboard:** http://localhost:8080
+- **Backend health check:** http://localhost:8000/health
+- **API documentation:** http://localhost:8000/docs
 
 ### Stop the Application
 
