@@ -124,8 +124,8 @@ docker compose up --build -d
 Open the dashboard:
 
 - **Dashboard:** [http://localhost:8080](http://localhost:8080)
-- **Backend health check:** [http://localhost:8080/health](http://localhost:8080/health)
-- **API documentation:** [http://localhost:8080/docs](http://localhost:8080/docs)
+- **Backend health check:** [http://localhost:8080/health] (http://localhost:8080/health)
+- **API documentation:** [http://localhost:8080/docs] (http://localhost:8080/docs)
 
 ### Stop the Application
 
@@ -173,7 +173,13 @@ r7m2vk/
 
 ChatGPT (OpenAI) was used as an AI-assisted development tool for implementation guidance, debugging, documentation, and reviewing the forecast-evaluation methodology. The application was tested locally using Docker, and the reported January 2026 evaluation results were verified against the running API.
 
-## Live Demo
+## Demo Video
+
+**WindScope Project Demonstration:** [Watch the demo on YouTube](https://www.youtube.com/watch?v=08c3oC3IPVU)
+
+The 8-minute demonstration covers the customer-facing dashboard, forecast-performance metrics, data-processing methodology, technical architecture, and deployment.
+
+The video is set to **Unlisted** and can be accessed by anyone with the link.
 
 **Live Dashboard:** https://windscope-mu.vercel.app/
 
