@@ -173,9 +173,13 @@ r7m2vk/
 
 ChatGPT (OpenAI) was used as an AI-assisted development tool for implementation guidance, debugging, documentation, and reviewing the forecast-evaluation methodology. The application was tested locally using Docker, and the reported January 2026 evaluation results were verified against the running API.
 
-## Demo
+## Live Demo
 
-Video demonstration: To be added after recording and uploading the unlisted YouTube walkthrough.
+**Live Dashboard:** https://windscope-mu.vercel.app/
+
+**Backend Health Check:** https://windscope-api-066t.onrender.com/health
+
+The dashboard evaluates UK day-ahead wind generation forecasts against actual generation using Elexon BMRS data. Select an evaluation month to review forecast accuracy metrics, daily error charts, and evaluation coverage.
 
 ## License
 
